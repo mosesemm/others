@@ -1,2 +1,5 @@
 app-env
 web-client/node_modules
+tmp
+tests/__pycache__
+server/__pycache__
