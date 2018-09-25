@@ -15,7 +15,7 @@ const Login = ({history}) => {
                     <ControlLabel>Password</ControlLabel>
                     <FormControl type="text"/>
                 </FormGroup>
-                <Button type="button" onClick={() => history.push('/register')}>Register</Button>
+                <Button type="button" onClick={() => history.push('/register')} className="push--right-5">Register</Button>
                 <Button type="button">Login</Button>
             </form>
         </Well>

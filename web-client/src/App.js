@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import Register from './register';
 import Home from './home';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Link, Switch, NavLink } from 'react-router-dom'
 import ApplicationAssessmentContainer from './assessment_wizard'
 import rootReducer from './reducers'
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import Login from './login';
+import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers());
+const store = createStore(rootReducer, composeEnhancers(
+  applyMiddleware(thunk /*, loggerMiddleware*/)
+));
 
 
 
@@ -25,22 +28,35 @@ const Nav = () => {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          {/**<Link to="/" className="navbar-brand">CSA</Link>**/}
+          {<Link to="/" className="navbar-brand">CSA</Link>}
+        </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li className="active"><Link to="/">Home</Link></li>
-              <li><Link to="/applications">Applications</Link></li>
+              <li><NavLink to="/">Home</NavLink></li>
+              <li><NavLink to="/applications">Applications</NavLink></li>
             </ul>
             
             <ul className="nav navbar-nav navbar-right">
-              <li><Link to="#">Logout</Link></li>
+              <li className="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown">User name <b className="caret"></b></a>
+                <ul className="dropdown-menu">
+                  <li><NavLink to="/api/logout">Logout</NavLink></li>
+                </ul>
+             </li>
             </ul>
-            
           </div>
         </div>
-        </div>
     </nav>  
+  )
+}
+
+const Footer = () => {
+
+  return (
+    <div className="container">
+        <p> &#169; 2018 Wits Computer Science department</p>
+    </div>
   )
 }
 
@@ -54,7 +70,7 @@ class App extends Component {
               <Nav />
             </div>
             <div className="jumbotron">
-              <h3>Academic application assessment</h3>  
+              <h2>College Application Assessment</h2>  
             </div>
             <div className="container">
               <Switch>
@@ -64,6 +80,8 @@ class App extends Component {
                 <Route path="/register" component={Register} />
               </Switch>
             </div>
+            <hr/>
+            <Footer />
           </div>
         </BrowserRouter>
       </Provider>

@@ -6,8 +6,40 @@ from server import bcrypt, mongo_db, app
 from server.models import UserService
 from server.utils import encode_auth_token, decode_auth_token
 from datetime import datetime
+from server.ocr_service import parse_certifcate
+from io import BytesIO
 
 auth_blueprint = Blueprint('auth', __name__)
+
+
+class ParseCertificateAPI(MethodView):
+
+    def post(self):
+
+        if 'file' not in request.files:
+            response_object = {
+                'status': 'fail',
+                'message': 'File not attached'
+            }
+            return make_response(jsonify(response_object)), 400
+
+        try:
+
+            file = request.files['file']
+
+            response_object = {
+                'status': 'success',
+                'data': parse_certifcate(BytesIO(file.read()))
+            }
+            return make_response(jsonify(response_object)), 201
+
+        except Exception as e:
+            print(e)
+            response_object = {
+                'status': 'fail',
+                'message': 'Unexpected error occurred. Please try again.'
+            }
+            return make_response(jsonify(response_object)), 500
 
 class RegisterAPI(MethodView):
 
@@ -128,6 +160,7 @@ class UserAPI(MethodView):
 registration_view = RegisterAPI.as_view('register_api')
 login_view = LoginAPI.as_view('login_api')
 user_view = UserAPI.as_view('user_api')
+parse_cert_view = ParseCertificateAPI.as_view('parse_cert_view')
 
 auth_blueprint.add_url_rule(
     '/auth/register',
@@ -144,4 +177,10 @@ auth_blueprint.add_url_rule(
     '/auth/status',
     view_func=user_view,
     methods=['GET']
+)
+
+auth_blueprint.add_url_rule(
+    '/auth/parse-certificate',
+    view_func=parse_cert_view,
+    methods=['POST']
 )

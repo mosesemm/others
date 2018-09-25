@@ -26,7 +26,7 @@ const Register = () => {
                     <ControlLabel>Confirm password</ControlLabel>
                     <FormControl type="password" />
                 </FormGroup>
-                <Button type="reset">Reset</Button>
+                <Button type="reset" className="push--right-5">Reset</Button>
                 <Button type="button">Submit</Button>
             </form>
         </Well>

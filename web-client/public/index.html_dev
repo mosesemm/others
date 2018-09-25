@@ -17,14 +17,10 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <!--<link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/bootstrap.css" />
     <link rel="stylesheet" href="./css/app.css" />
     <script src="./js/jquery-3.3.1.min.js" ></script>
-    <script src="./js/bootstrap.min.js" ></script>-->
-    <link rel="stylesheet" href="public/css/bootstrap.css" />
-    <link rel="stylesheet" href="public/css/app.css" />
-    <script src="public/js/jquery-3.3.1.min.js" ></script>
-    <script src="public/js/bootstrap.min.js" ></script>
+    <script src="./js/bootstrap.min.js" ></script>
     <title>College Applications</title>
   </head>
   <body>
@@ -42,6 +38,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script src="public/js/main.0cc5ccc9.js" ></script>
   </body>
 </html>
