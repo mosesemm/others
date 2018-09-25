@@ -27,13 +27,13 @@ const applicationsReducer = (state = intialState, action) => {
 }
 
 const changeSubject = (subjects, key, value) => {
-    
+
     return subjects.map(item => {
-        if (key in Object.keys(item)){
-            item[key] = value;
+        if (key == item.subject){
+            item.subject = value;
         }
-        if (('symbol_'+key) in Object.keys(item)){
-            item['symbol_'+key] = value;
+        if (key == ("symbol_"+item.subject)){
+            item.symbol = value;
         }
 
         return item;
