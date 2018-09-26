@@ -8,6 +8,8 @@ from server.utils import encode_auth_token, decode_auth_token
 from datetime import datetime
 from server.ocr_service import parse_certifcate
 from io import BytesIO
+from server.assessment_service import check_course_acceptence
+from server.certificate_verification import verify_certificate
 
 auth_blueprint = Blueprint('auth', __name__)
 
@@ -40,6 +42,53 @@ class ParseCertificateAPI(MethodView):
                 'message': 'Unexpected error occurred. Please try again.'
             }
             return make_response(jsonify(response_object)), 500
+
+class CertVerifyAPI(MethodView):
+
+    def post(self):
+        post_data = request.get_json()
+        
+        try:
+
+            results = verify_certificate(post_data['exam_number'], post_data['subjects'])
+
+            response_object = {
+                'status': 'success',
+                'results': results,
+            }
+
+            return make_response(jsonify(response_object)), 201
+
+        except Exception as e:
+            print(e)
+            response_object = {
+                'status': 'fail',
+                'message': 'Unexpected error occurred. Please try again.'
+            }
+            return make_response(jsonify(response_object)), 401
+
+class AssessmentAPI(MethodView):
+
+    def post(self):
+        post_data = request.get_json()
+        
+        try:
+
+            results = check_course_acceptence(post_data['subjects'], post_data['course'])
+
+            response_object = {
+                'status': 'success',
+                'results': results,
+            }
+
+            return make_response(jsonify(response_object)), 201
+
+        except Exception as e:
+            response_object = {
+                'status': 'fail',
+                'message': 'Unexpected error occurred. Please try again.'
+            }
+            return make_response(jsonify(response_object)), 401
 
 class RegisterAPI(MethodView):
 
@@ -161,6 +210,8 @@ registration_view = RegisterAPI.as_view('register_api')
 login_view = LoginAPI.as_view('login_api')
 user_view = UserAPI.as_view('user_api')
 parse_cert_view = ParseCertificateAPI.as_view('parse_cert_view')
+cert_verify_view = CertVerifyAPI.as_view('cert_verify_view')
+assessment_view = AssessmentAPI.as_view('assessment_view')
 
 auth_blueprint.add_url_rule(
     '/auth/register',
@@ -184,3 +235,17 @@ auth_blueprint.add_url_rule(
     view_func=parse_cert_view,
     methods=['POST']
 )
+
+
+auth_blueprint.add_url_rule(
+    '/auth/cert-verify',
+    view_func=cert_verify_view,
+    methods=['POST']
+)
+
+auth_blueprint.add_url_rule(
+    '/auth/assessment',
+    view_func=assessment_view,
+    methods=['POST']
+)
+
