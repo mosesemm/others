@@ -71,24 +71,28 @@ class AssessmentAPI(MethodView):
 
     def post(self):
         post_data = request.get_json()
+        print(post_data)
         
         try:
 
-            results = check_course_acceptence(post_data['subjects'], post_data['course'])
+            results_courses = check_course_acceptence(post_data['subjects'], post_data['course'])
+            results_cert = verify_certificate(post_data['exam_number'], post_data['subjects'])
 
             response_object = {
                 'status': 'success',
-                'results': results,
+                'results_courses': results_courses,
+                'results_cert': results_cert,
             }
 
             return make_response(jsonify(response_object)), 201
 
         except Exception as e:
+            print(e)
             response_object = {
                 'status': 'fail',
                 'message': 'Unexpected error occurred. Please try again.'
             }
-            return make_response(jsonify(response_object)), 401
+            return make_response(jsonify(response_object)), 400
 
 class RegisterAPI(MethodView):
 

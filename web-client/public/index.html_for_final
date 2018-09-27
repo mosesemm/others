@@ -18,6 +18,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <!--<link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/all.min.css" />
     <link rel="stylesheet" href="./css/app.css" />
     <script src="./js/jquery-3.3.1.min.js" ></script>
     <script src="./js/bootstrap.min.js" ></script>-->

@@ -22,3 +22,26 @@ export const parseCertificate = (file) => {
         } 
     })
 }
+
+export const assessCourseOrCert = (payload) => {
+
+
+    return fetch('/auth/assessment',
+            {method: 'POST', body: JSON.stringify(payload),
+            headers: new Headers({
+                'content-type': 'application/json'
+            })
+            })
+            .then( response => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                try{
+                    return response.json();
+                }
+                catch(error) {
+                    return response.text().then(error => Promise.reject(error));
+                }
+            })
+}

@@ -5,6 +5,9 @@ export const SET_CURRENT_FILE="SET_CURRENT_FILE";
 export const REQ_PARSE_CERT = "REQ_PARSE_CERT";
 export const SET_PARSE_RESULTS = "SET_PARSE_RESULTS";
 export const SET_SUBJECT_ITEM = "SET_SUBJECT_ITEM";
+export const CHANGE_GENERIC_APPLICATION_ATTR = "CHANGE_GENERIC_APPLICATION_ATTR";
+export const REQ_ASSESSMENT = 'REQ_ASSESSMENT';
+export const SET_ASSESSMENT_RESULTS = 'SET_ASSESSMENT_RESULTS';
 
 export const goToStep = (step) => {
 
@@ -48,6 +51,15 @@ export const subjectItemChange = (key, value) => {
     }
 }
 
+export const onGenericAttrChange = (key, value) => {
+
+    return {
+        type: CHANGE_GENERIC_APPLICATION_ATTR,
+        key,
+        value
+    }
+}
+
 export const fileOnChange = (file) => {
 
     return (dispatch, getState) => {
@@ -65,6 +77,51 @@ export const fileOnChange = (file) => {
             error => {
                 console.log(error);
                 dispatch(setParseResults(undefined, undefined, error.message));
+            }
+        )
+    }
+}
+
+export const reqAssessment = () => {
+
+    return {
+        type: REQ_ASSESSMENT,
+    }
+}
+export const setAssessmentResults = (courseVerification, certVerification, verificationErrors) => {
+
+    return {
+        type: SET_ASSESSMENT_RESULTS,
+        courseVerification,
+        certVerification,
+        verificationErrors
+    }
+}
+
+export const submitAssessCourseOrCert = () => {
+
+    return (dispatch, getState) => {
+
+        dispatch(reqAssessment());
+        //it wil be nice to bundle everything into some object some sort
+        let payload = {};
+        payload['subjects'] = getState().applications.subjects || [];
+        payload['course'] = getState().applications.course || "";
+        payload['exam_number'] = getState().applications.examNumber || "";
+
+        api.assessCourseOrCert(payload).then(
+            (data) => {
+                if(data && data.status == "success") {
+                    dispatch(setAssessmentResults(data.results_courses, data.results_cert));
+                    dispatch(goToStep(2));
+                }
+                else{
+                    dispatch(setAssessmentResults(undefined, undefined, data.message));
+                }
+            },
+            error => {
+                console.log(error);
+                dispatch(setAssessmentResults(undefined, undefined, error.message));
             }
         )
     }

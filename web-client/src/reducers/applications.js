@@ -1,8 +1,10 @@
 
-import {STEP_TO, SET_CURRENT_FILE, REQ_PARSE_CERT, SET_PARSE_RESULTS, SET_SUBJECT_ITEM} from '../actions/applications';
+import {STEP_TO, SET_CURRENT_FILE, REQ_PARSE_CERT, SET_PARSE_RESULTS,
+         SET_SUBJECT_ITEM, CHANGE_GENERIC_APPLICATION_ATTR, REQ_ASSESSMENT, SET_ASSESSMENT_RESULTS} from '../actions/applications';
 const intialState = {
     step: 1,
     req_loading: false,
+    req_ass_loading: false,
     subjects: []
 }
 
@@ -20,6 +22,13 @@ const applicationsReducer = (state = intialState, action) => {
                     parseErrors: action.parseErrors};
         case SET_SUBJECT_ITEM:
                 return {...state, subjects: changeSubject(state.subjects, action.key, action.value)}
+        case CHANGE_GENERIC_APPLICATION_ATTR:
+                return {...state, [action.key]: action.value}
+        case REQ_ASSESSMENT:
+                return {...state, req_ass_loading: true};
+        case SET_ASSESSMENT_RESULTS:
+                return {...state, req_ass_loading: false, courseVerification: action.courseVerification,
+                    certVerification: action.certVerification, verificationErrors: action.verificationErrors};
         default:
             return state;
     }
