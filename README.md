@@ -11,7 +11,7 @@
   - mongo
   - jwt
 ##### Client side
- - react js
+ - react + redux
  
  ### To setup
  
