@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="public/css/app.css" />
     <script src="public/js/jquery-3.3.1.min.js" ></script>
     <script src="public/js/bootstrap.min.js" ></script>
+    <script src="public/js/all.min.js" ></script>
     <title>College Applications</title>
   </head>
   <body>

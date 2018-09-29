@@ -100,10 +100,13 @@ class RegisterAPI(MethodView):
 
     def post(self):
         post_data = request.get_json()
+
         user = self.userService.get_user_by_email(post_data['email'])
         if not user:
             try:
                 user = dict(email=post_data.get('email'), 
+                name = post_data['name'],
+                surname= post_data['surname'],
                 password = bcrypt.generate_password_hash(post_data.get('password'), app.config.get('BCRYPT_LOG_ROUNDS')).decode(),
                 role = 'student',
                 registered_on = datetime.now())

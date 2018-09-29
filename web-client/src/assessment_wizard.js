@@ -37,8 +37,10 @@ export const AssessmentStep1 = ({goToStep, fileOnChange, req_loading, parseError
 
                     <table className="table">
                         <thead>
-                            <th>Subject</th>
-                            <th>Symbol</th>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Symbol</th>
+                            </tr>
                         </thead>
                         <tbody>
                         {

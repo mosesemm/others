@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Register from './register';
+import RegisterContainer from './register';
 import Home from './home';
 import { BrowserRouter, Route, Link, Switch, NavLink } from 'react-router-dom'
 import ApplicationAssessmentContainer from './assessment_wizard'
@@ -11,7 +11,8 @@ import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(
-  applyMiddleware(thunk /*, loggerMiddleware*/)
+  applyMiddleware(
+     thunk, /*, loggerMiddleware*/)
 ));
 
 
@@ -77,7 +78,7 @@ class App extends Component {
                 <Route exact path="/" component={Home}/>
                 <Route path="/login" component={Login} />
                 <Route path="/applications" component={ApplicationAssessmentContainer}/>
-                <Route path="/register" component={Register} />
+                <Route path="/register" component={RegisterContainer} />
               </Switch>
             </div>
             <hr/>
