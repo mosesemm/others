@@ -11,7 +11,10 @@
   - mongo
   - jwt
 ##### Client side
- - react js
+ - react + redux
  
  ### To setup
+ 
+ ### Acknowledgements
+ - https://github.com/realpython/flask-jwt-auth
  
