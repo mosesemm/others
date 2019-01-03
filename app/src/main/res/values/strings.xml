@@ -2,4 +2,8 @@
     <string name="app_name">PlayApp</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+    <string name="button_toast_txt">Toast</string>
+    <string name="button_count_txt">Count</string>
+    <string name="count_initial_value">0</string>
+    <string name="toast_message">Hello Toast!</string>
 </resources>
