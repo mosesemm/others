@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Play app</string>
+    <string name="app_name">Chat play</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string name="button_toast_txt">Toast</string>
@@ -30,4 +30,10 @@ This volume starts with the first new Beatle song, “Free as a Bird” (based o
 <b><i>One After 909</i></b> — A song recorded for the <i>Let It Be</i> album was actually worked on way back in the beginning, six years earlier. This take shows how they did it much more slowly, with an R&amp;B feel to it.
 </string>
     <string name="add_comment">Add comment</string>
+    <string name="activity2_name">Second activity</string>
+    <string name="msg_recvd_header_lbl">Message Received</string>
+    <string name="msg_hint_act1_lbl">Enter your message here</string>
+    <string name="act2_reply_hint">Enter Your Reply Here</string>
+    <string name="button_second">Reply</string>
+    <string name="reply_text_header" >Reply Received</string>
 </resources>
