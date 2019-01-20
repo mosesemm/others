@@ -16,13 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReplyActivity"
-            android:label="@string/activity2_name"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="za.co.simplesolutions.playapp.ReplyActivity"
-                />
+        <activity android:name=".ImplicitIntentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <!--<data android:scheme="http" android:host="developer.android.com" />-->
+            </intent-filter>
         </activity>
     </application>
 
