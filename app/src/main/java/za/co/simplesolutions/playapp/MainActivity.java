@@ -21,12 +21,68 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(LOG_TAG, "----------");
+        Log.d(LOG_TAG, "onCreate");
+
         setContentView(R.layout.activity_main);
 
         messageEditText = findViewById(R.id.editText_main);
         replyHeaderTxt = findViewById(R.id.reply_header_txt);
         replyValueText = findViewById(R.id.reply_txt);
+
+        if(savedInstanceState != null) {
+            boolean isVisible = savedInstanceState.getBoolean("reply_visible");
+
+            if(isVisible) {
+                replyHeaderTxt.setVisibility(View.VISIBLE);
+                replyValueText.setText(savedInstanceState.getString("reply_text"));
+                replyValueText.setVisibility(View.VISIBLE);
+            }
+        }
+
         Log.i(MainActivity.class.getName(), "started...");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(replyHeaderTxt.getVisibility() == View.VISIBLE) {
+            outState.putBoolean("reply_visible", true);
+            outState.putString("reply_text", replyValueText.getText().toString());
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.d(LOG_TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(LOG_TAG, "onResume");
     }
 
     public void launchSecondActivity(View view) {

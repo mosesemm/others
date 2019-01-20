@@ -17,6 +17,10 @@ public class ReplyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(LOG_TAG, "----------");
+        Log.d(LOG_TAG, "onCreate");
+
         setContentView(R.layout.activity_reply);
 
         Intent intent = getIntent();
@@ -27,6 +31,38 @@ public class ReplyActivity extends AppCompatActivity {
         messageReply = findViewById(R.id.editText_reply);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        Log.d(LOG_TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LOG_TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(LOG_TAG, "onResume");
+    }
+
     public void returnReply(View view) {
         Log.i(LOG_TAG, "return button clicked");
 
@@ -34,6 +70,8 @@ public class ReplyActivity extends AppCompatActivity {
         Intent replyIntent = new Intent();
         replyIntent.putExtra(EXTRA_REPLY, reply);
         setResult(RESULT_OK, replyIntent);
+
+        Log.i(LOG_TAG, "End second activity");
         finish();
     }
 }
