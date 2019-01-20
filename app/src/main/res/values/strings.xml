@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Implicit intents play</string>
+    <string name="app_name">HelloCompat play</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
     <string name="button_toast_txt">Toast</string>
@@ -43,4 +43,6 @@ This volume starts with the first new Beatle song, “Free as a Bird” (based o
     <string name="edittext_share">\\\'Twas brillig and the slithy toves</string>
     <string name="button_share">Share This Text</string>
     <string name="txt_chooser_title">Share this text with:</string>
+    <string name="hello_text">Hello World!</string>
+    <string name="chng_color_btn">Change Color</string>
 </resources>
