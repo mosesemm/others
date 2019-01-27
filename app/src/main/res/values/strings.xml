@@ -30,4 +30,22 @@
     <string name="donut_order_message">You ordered a donut.</string>
     <string name="ice_cream_order_message">You ordered an ice cream sandwich.</string>
     <string name="froyo_order_message">You ordered a Froyo.</string>
+    <string name="name_lbl_txt">Name</string>
+    <string name="name_hint_txt">Enter your name</string>
+    <string name="address_lbl_txt">Address</string>
+    <string name="address_hint_txt">Enter address</string>
+    <string name="phone_hint_txt">Enter phone</string>
+    <string name="phone_lbl_txt">Phone</string>
+    <string name="note_lbl_txt">Note</string>
+    <string name="notes_hint_txt">Enter notes</string>
+    <string name="delivery_meth_txt" >Choose a delivery method:</string>
+    <string name="same_day_option_txt">Same day messenger service</string>
+    <string name="nextday_option_txt">Next day ground delivery</string>
+    <string name="pickup_option_lbl">Pick up</string>
+    <string-array name="labels_array">
+        <item>Home</item>
+        <item>Work</item>
+        <item>Mobile</item>
+        <item>Other</item>
+    </string-array>
 </resources>
