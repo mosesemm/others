@@ -3,9 +3,12 @@ package za.co.simplesolutions.playapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -17,40 +20,46 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    public static final String EXTRA_MESSAGE = "za.co.simplesolutions.extra.MESSAGE";
-    private TextView helloTxtVw;
-    private String[] mColorArray = {"red", "pink", "purple", "deep_purple",
-            "indigo", "blue", "light_blue", "cyan", "teal", "green",
-            "light_green", "lime", "yellow", "amber", "orange", "deep_orange",
-            "brown", "grey", "blue_grey", "black" };
+    private String orderMessage = "";
+    public static final String EXTRA_MESSAGE = "za.co.simplesolutions.playapp.extra.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        helloTxtVw = findViewById(R.id.hello_textview);
-
-        if(savedInstanceState != null) {
-            helloTxtVw.setTextColor(savedInstanceState.getInt("color"));
-        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Log.i(MainActivity.class.getName(), "started...");
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("color", helloTxtVw.getCurrentTextColor());
+    public void onClick(View view) {
+        /**Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+         **/
+
+        Intent intent = new Intent(MainActivity.this, OrderActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, orderMessage);
+        startActivity(intent);
     }
 
-    public void changeColor(View view) {
-        Random random = new Random();
-        String colorName = mColorArray[random.nextInt(mColorArray.length)];
-        int colorResourceName = getResources().getIdentifier(colorName, "color", getApplicationContext().getPackageName());
-        int colorRes = ContextCompat.getColor(this, colorResourceName);
-        helloTxtVw.setTextColor(colorRes);
+    public void displayToast(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
+    public void showDonutOrder(View view) {
+        orderMessage = getString(R.string.donut_order_message);
+        displayToast(getString(R.string.donut_order_message));
+    }
 
+    public void showIcreamOrder(View view) {
+        orderMessage = getString(R.string.ice_cream_order_message);
+        displayToast(orderMessage);
+    }
+
+    public void showFroyoOrder(View view) {
+        orderMessage = getString(R.string.froyo_order_message);
+        displayToast(orderMessage);
     }
 }
