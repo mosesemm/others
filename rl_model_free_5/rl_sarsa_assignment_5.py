@@ -107,25 +107,14 @@ def sarsa(env, num_episodes=200, discount_factor=1.0, alpha=0.5, epsilon=0.1, de
     return Q, episode_rewards, episode_lengths, episodes_qs
 
 
-def displayHeatmap(values):
-
-    sns.heatmap(values)
-
-    #plt.savefig('./heatmap_plot.png')
-    plt.show()
-    #plt.close()
-
-def displayHeatmap2(values):
-    im = plt.imshow(values, cmap=matplotlib.cm.coolwarm)
-    plt.show()
-
 def displayErrorBar(x,y):
 
+    fig2 = plt.figure()
     yerr = y - np.mean(y)
     plt.figure()
     plt.errorbar(x, y, yerr=yerr)
     plt.title("Average returns error bars")
-    plt.show()
+    plt.savefig("errorbar.png")
 
 env = gym.make("CliffWalking-v0")
 
@@ -150,26 +139,15 @@ def recordAnimation(q_values, lambda_v):
 
     fig = plt.figure()
     def animate(i):
-        plt.imshow(maxValueFunc(q_values[i]), cmap=matplotlib.cm.coolwarm)
+        plt.imshow(maxValueFunc(q_values[i]).reshape((4,12)), cmap=matplotlib.cm.coolwarm)
 
     ani = matplotlib.animation.FuncAnimation(fig, animate, frames=len(q_values), repeat=True)
-    ani.save("animation_for_"+lambda_v+".mp4", writer=writer)
+    ani.save("animation_for_"+str(lambda_v)+".mp4", writer=writer)
 
 
-V_sarsa = maxValueFunc(Q)
-print(V_sarsa.reshape(4, 12))
+#generate the required animations
+for i in lambda_to_q_values:
+    recordAnimation(lambda_to_q_values[i], i)
 
-print("\n\n******************* should be the same ********\n\n")
-print(maxValueFunc(episodes_qs[-1]))
-
-#displayHeatmap(V_sarsa.reshape(4, 12))
-
-#displayHeatmap2(V_sarsa.reshape(4, 12))
-
-print("******************\n\n\n")
-print("average returns over 100 runs???:")
-print(average_returns)
-print("lamdba values corresponding to results: ")
-print(lambda_values)
-
-#displayErrorBar(lambda_values, average_returns)
+#the errorbar
+displayErrorBar(lambda_values, average_returns)
