@@ -1,0 +1,11 @@
+2019-09-01 15:33:00,557 - __main__ - ERROR - test one two: some error
+2019-09-01 15:33:00,557 - __main__ - ERROR - Exception occured
+Traceback (most recent call last):
+  File "/Users/mosesmosese/PycharmProjects/RL_Labs/random_tutorials/logging_tutorial.py", line 19, in <module>
+    c = a/b
+ZeroDivisionError: division by zero
+2019-09-01 15:33:00,557 - __main__ - DEBUG - This is a debug message
+2019-09-01 15:33:00,557 - __main__ - INFO - this is an info message
+2019-09-01 15:33:00,557 - __main__ - WARNING - this is a warning message
+2019-09-01 15:33:00,557 - __main__ - ERROR - this is an error message
+2019-09-01 15:33:00,557 - __main__ - CRITICAL - this is a critical message
