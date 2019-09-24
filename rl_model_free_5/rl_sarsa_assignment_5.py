@@ -66,6 +66,7 @@ def sarsa(env, num_episodes=200, discount_factor=1.0, alpha=0.5, epsilon=0.1, de
         # choose the action based on epsilon greedy policy
         probs = policy(current_state)
         action = np.random.choice(np.arange(len(probs)), p=probs)
+        episodes_qs.append(Q)
         # keep track number of time-step per episode only for plotting
         for t in itertools.count():
             next_state, reward, done, _ = env.step(action)
@@ -102,8 +103,6 @@ def sarsa(env, num_episodes=200, discount_factor=1.0, alpha=0.5, epsilon=0.1, de
                 current_state = next_state
                 action = next_action
 
-        episodes_qs.append(Q)
-
     return Q, episode_rewards, episode_lengths, episodes_qs
 
 
@@ -135,19 +134,30 @@ for Lamda in lambda_values:
 Writer = animation.writers['ffmpeg']
 writer = Writer(fps=20, metadata=dict(artist="Me"), bitrate=1800)
 
+def recordAnimation2(q_values, lambda_v):
+    fig = plt.figure()
+    ims = []
+    for q_v in q_values:
+        im = plt.imshow(maxValueFunc(q_v).reshape((4,12)), cmap=matplotlib.cm.coolwarm, animated=True)
+        ims.append([im])
+
+    ani = matplotlib.animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=1000)
+    ani.save("animation_for_" + str(lambda_v) + ".mp4", writer=writer)
+
 def recordAnimation(q_values, lambda_v):
 
     fig = plt.figure()
     def animate(i):
         plt.imshow(maxValueFunc(q_values[i]).reshape((4,12)), cmap=matplotlib.cm.coolwarm)
+        #sns.heatmap(maxValueFunc(q_values[i]).reshape((4,12)))
 
-    ani = matplotlib.animation.FuncAnimation(fig, animate, frames=len(q_values), repeat=True)
+    ani = matplotlib.animation.FuncAnimation(fig, animate, frames=len(q_values), repeat=False)
     ani.save("animation_for_"+str(lambda_v)+".mp4", writer=writer)
 
 
 #generate the required animations
 for i in lambda_to_q_values:
-    recordAnimation(lambda_to_q_values[i], i)
+    recordAnimation2(lambda_to_q_values[i], i)
 
 #the errorbar
 displayErrorBar(lambda_values, average_returns)
