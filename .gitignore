@@ -7,3 +7,6 @@ venv
 *.zip
 __pycache__
 *recording*
+*node_modules*
+*flask_session*
+*.whl

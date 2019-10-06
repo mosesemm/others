@@ -5,6 +5,8 @@ import gym
 from dqn.agent import DQNAgent
 from dqn.replay_buffer import ReplayBuffer
 from dqn.wrappers import *
+import matplotlib.pyplot as plt
+import torch
 
 if __name__ == '__main__':
 
@@ -42,10 +44,16 @@ if __name__ == '__main__':
     #
     #
 
+    env = WarpFrame(env)
+    env = PyTorchFrame(env)
+    #env = FrameStack(env)
+
     replay_buffer = ReplayBuffer(hyper_params["replay-buffer-size"])
 
     # TODO Create dqn agent
-    # agent = DQNAgent( ... )
+
+    agent = DQNAgent(env.observation_space, env.action_space, replay_buffer, hyper_params["use-double-dqn"],
+                        hyper_params["learning-rate"], hyper_params["batch-size"], hyper_params["discount-factor"])
 
     eps_timesteps = hyper_params["eps-fraction"] * float(hyper_params["num-steps"])
     episode_rewards = [0.0]
@@ -57,10 +65,14 @@ if __name__ == '__main__':
         sample = random.random()
         # TODO 
         #  select random action if sample is less equal than eps_threshold
+        action = random.choice(np.arange(env.action_space.n)) if sample <= eps_threshold else  agent.act(state)
         # take step in env
+        next_state, reward, done, _ = env.step(action)
         # add state, action, reward, next_state, float(done) to reply memory - cast done to float
-        # add reward to episode_reward
+        replay_buffer.add(state, action, reward, next_state, float(done))
 
+        # add reward to episode_reward
+        state = next_state
         episode_rewards[-1] += reward
         if done:
             state = env.reset()
@@ -83,3 +95,13 @@ if __name__ == '__main__':
             print("mean 100 episode reward: {}".format(mean_100ep_reward))
             print("% time spent exploring: {}".format(int(100 * eps_threshold)))
             print("********************************************************")
+            torch.save(agent.policy_network.state_dict(), 'checkpoint_pl.pth')
+            torch.save(agent.target_network.state_dict(), 'checkpoint_tgt.pth')
+
+    #plot reward per episode
+    fig = plt.figure()
+    #ax = fig.add_subplot(111)
+    plt.plot(np.arange(len(episode_rewards)), episode_rewards)
+    plt.ylabel('Score')
+    plt.xlabel('Episode #')
+    plt.save("espisode_reward.png")

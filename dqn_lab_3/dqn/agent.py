@@ -4,7 +4,12 @@ import numpy as np
 from dqn.model import DQN
 from dqn.replay_buffer import ReplayBuffer
 
-device = "cuda"
+import torch
+import torch.nn.functional as F
+import torch.optim as optim
+
+#device = "cuda"
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 class DQNAgent:
@@ -34,7 +39,7 @@ class DQNAgent:
         self.target_network = DQN(observation_space, action_space).to(device)
         self.update_target_network()
         self.target_network.eval()
-        self.optimiser =  # TODO Initialise Pytorch/Tensorflow optimiser with learning rate and policy_network.parameters()
+        self.optimiser = optim.Adam(self.policy_network.parameters(), lr=lr) # TODO Initialise Pytorch/Tensorflow optimiser with learning rate and policy_network.parameters()
 
     def optimise_td_loss(self):
         """
@@ -47,14 +52,29 @@ class DQNAgent:
         #   using done (as a float) instead of if statement
         #   return loss
 
-        raise NotImplementedError
+        states, actions, rewards, next_states, dones = self.memory.sample(self.batch_size)
+        Q_targets_next = self.target_network(next_states).detatch().max(1)[0].unsqueeze(1)
+        Q_targets = rewards + (self.gamma * Q_targets_next * (1-dones))
+
+        Q_expected = self.policy_network(states).gather(1, actions)
+
+        loss = F.mse_loss(Q_expected, Q_targets)
+        self.optimiser.zero_grad()
+        loss.backward()
+        self.optimiser.step()
+
+        return loss
+
 
     def update_target_network(self):
         """
         Update the target Q-network by copying the weights from the current Q-network
         """
         # TODO update target_network parameters with policy_network parameters
-        raise NotImplementedError
+        #??
+        for target_param, policy_param in zip(self.target_network.parameters(), self.policy_network.parameters()):
+            #soft updates, maybe later
+            target_param.data.copy_(policy_param.data)
 
     def act(self, state: np.ndarray):
         """
@@ -63,4 +83,10 @@ class DQNAgent:
         :return: the action to take
         """
         # TODO Select action greedily from the Q-network given the state
-        raise NotImplementedError
+        state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        self.policy_network.eval()
+        with torch.no_grad():
+            action_values = self.policy_network(state)
+        self.policy_network.train()
+
+        return np.argmax(action_values.cpu().data.numpy())
