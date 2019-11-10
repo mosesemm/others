@@ -1,0 +1,13 @@
+idea
+.idea
+*.png
+*.mp4
+venv
+.DS_Store
+*.zip
+__pycache__
+*recording*
+*node_modules*
+*flask_session*
+*.whl
+ObstacleTower
