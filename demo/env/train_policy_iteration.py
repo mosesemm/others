@@ -1,14 +1,11 @@
 import numpy as np
 from collections import defaultdict
-import itertools
-import matplotlib.pyplot as plt
-import matplotlib
-import matplotlib.animation as animation
 from fire_modeling_env import FireModelingEnv
 from dataset_generator import data_set
 
 from commons import argmax
 from evaluate import evaluate_model_free
+from visualize import save_animation
 
 
 def hash_state(array):
@@ -81,8 +78,14 @@ q_values, rewards = q_learning(env, num_episodes=num_episodes,
                                            discount_factor=discount_factor,
                                            epsilon=epsilon,
                                            alpha=alpha)
-print("done...", len(rewards))
-print(q_values)
+#print("done...", len(rewards))
+#print(q_values)
 
-evaluate_model_free(q_values)
+frames, mat = evaluate_model_free(q_values)
+print("*******Confusion matrix: td learning")
+print(mat)
+save_animation(frames, "td_learning_test")
+
+
+
 

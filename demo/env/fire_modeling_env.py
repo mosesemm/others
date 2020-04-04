@@ -117,6 +117,6 @@ class FireModelingEnv(gym.Env):
 
 
     def render(self, mode='human', close=False):
-        render_current(self.map, (self.current_step[0], self.current_step[1]), self.max_, self.max_,
+        return render_current(self.map, (self.current_step[0], self.current_step[1]), self.max_, self.max_,
                        visited=self.visited_states)
 

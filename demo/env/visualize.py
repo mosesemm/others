@@ -3,8 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.table import Table
 
-from cv2 import VideoWriter, VideoWriter_fourcc
-import matplotlib.animation as animation
+from celluloid import Camera
 
 
 
@@ -40,56 +39,14 @@ def render_current(map, current, WIDTH, HEIGHT, visited=[]):
     ax.add_table(tb)
 
     plt.show()
-    plt.close()
+    #plt.close()
+    return fig
 
-
-'''
-
-TODO: trying to make the rendered images into a video
-
-from dataset_generator import data_set, WIDTH, HEIGHT
-import random
-fig = render_current(data_set, (random.randint(0,9), random.randint(0,9)),WIDTH, HEIGHT, visited=[(0,0), (0,1), (0,3)])
-
-img = np.array(fig.canvas.renderer._renderer)
-
-w,h = fig.canvas.get_width_height()
-buf = np.fromstring(fig.canvas.to_string_argb(), dtype=np.uint8)
-buf.shape = (w,h,4)
-
-#convert back to rgb mode
-buf = np.roll(buf, 3, axis=2)
-print(buf)
-
-print(img)
-
-width = 1280
-height = 720
-FPS = 1
-seconds = 10
-
-
-
-fourcc = VideoWriter_fourcc(*"MP42")
-video = VideoWriter("./plot_animation.avi", fourcc, float(FPS), (width, height))
-
-for i in range(FPS*seconds):
-    video.write(img)
-    print("iteration: {} ".format(i))
-video.release()
-
-
-imgs = []
-imgs.append([plt.imshow(img)])
-fig = plt.figure()
-Writer = animation.writers["ffmpeg"]
-writer = Writer(fps=FPS, metadata=dict(artist="Me"), bitrate=18000)
-ani = animation.ArtistAnimation(fig, imgs, interval=FPS, blit=True, repeat_delay=0)
-ani.save("plot_animation.mp4", writer=writer)
-
-print(img.shape)
-
-plt.imshow(img)
-#plt.show()
-
-'''
+def save_animation(frames, filename):
+    fig = plt.figure()
+    camera = Camera(fig)
+    for f in frames:
+        plt.imshow(f)
+        camera.snap()
+    animation = camera.animate()
+    animation.save(filename+'.gif', writer='PillowWriter', fps=2)
