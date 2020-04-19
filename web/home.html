@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>Face monitor</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/knockout/build/output/knockout-latest.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="p-5 bg-info mt-10">
+        <h2>Face Monitor</h2>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Home</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="card-title"><h5>Home</h5></div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <video class="img-thumbnail" data-bind="click: selectVideo.bind({video:'test.mp4'})">
+                        <source src="test.mp4" type="video/mp4">
+                    </video>
+                    <video class="img-thumbnail" data-bind="click: selectVideo.bind({video:'test2.MP4'})">
+                        <source src="test2.MP4" type="video/mp4">
+                    </video>
+                    <video class="img-thumbnail" data-bind="click: selectVideo.bind({video: 'test.mp4'})">
+                        <source src="test.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="col-sm-9">
+
+                    <video id="play_area" class="img-fluid">
+                        <source src="test.mp4" type="video/mp4">
+                    </video>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-primary" data-bind="click: play">Play</button>
+                        <button type="button" class="btn btn-dark" data-bind="click: survey">Survey</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="home.js"></script>
+</body>
+</html>
