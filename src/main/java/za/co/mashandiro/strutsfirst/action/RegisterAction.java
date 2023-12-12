@@ -2,6 +2,7 @@ package za.co.mashandiro.strutsfirst.action;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -42,7 +43,7 @@ public class RegisterAction extends ActionSupport{
     }
 
     public void validate() {
-        if(personBean.getFirstName().length() == 0) {
+        if(Optional.ofNullable(personBean.getFirstName()).orElse("").length() == 0) {
             addFieldError("personBean.firstName", "First name is required.");
         }
         if(personBean.getEmail().length() == 0) {

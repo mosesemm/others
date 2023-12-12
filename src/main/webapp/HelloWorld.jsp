@@ -11,7 +11,7 @@
         <h2><s:property value="messageStore.message" /> </h2>
         <h5><s:property value="messageStore"/></h5>
         <div>
-            <h4>Count will be: <s:property value="helloCount" /></h4>
+            <h4>Count will be: <s:property value="#session.helloCount" /></h4>
         </div>
 
         <p>
