@@ -1,0 +1,151 @@
+{
+  "id": "fb78afa0-b7d3-4a00-a8ed-55053a2ff20a",
+  "version": "2.0",
+  "name": "QuickTest",
+  "url": "https://www.moneyweb.co.za",
+  "tests": [{
+    "id": "edbd827a-0bdb-4d2d-887b-8a45edd8205a",
+    "name": "Login and visit all shares listing",
+    "commands": [{
+      "id": "cabcff07-ab04-40c2-90dc-e870cbb64c17",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "829a207f-1446-40d7-8971-b23001a91fde",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1728x1001",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b906e6f9-cdac-4a2f-a5d0-ce54703bfbb0",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//span[contains(.,'SIGN IN')]",
+      "targets": [
+        ["css=.hidden-md", "css:finder"],
+        ["xpath=//a[@id='login-link']/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'SIGN IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "547da1f0-7de3-47d0-b1c3-70c19f7c90a6",
+      "comment": "",
+      "command": "click",
+      "target": "id=user_login",
+      "targets": [
+        ["id=user_login", "id"],
+        ["name=log", "name"],
+        ["css=#user_login", "css:finder"],
+        ["xpath=//input[@id='user_login']", "xpath:attributes"],
+        ["xpath=//form[@id='loginform-custom']/p/input", "xpath:idRelative"],
+        ["xpath=//p/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02f53b7c-0b84-4043-ba5a-af050b5c0636",
+      "comment": "",
+      "command": "type",
+      "target": "id=user_login",
+      "targets": [
+        ["id=user_login", "id"],
+        ["name=log", "name"],
+        ["css=#user_login", "css:finder"],
+        ["xpath=//input[@id='user_login']", "xpath:attributes"],
+        ["xpath=//form[@id='loginform-custom']/p/input", "xpath:idRelative"],
+        ["xpath=//p/input", "xpath:position"]
+      ],
+      "value": "inv_me_22"
+    }, {
+      "id": "871f3fa3-96e1-444a-92d4-8f2085a933a5",
+      "comment": "",
+      "command": "type",
+      "target": "id=user_pass",
+      "targets": [
+        ["id=user_pass", "id"],
+        ["name=pwd", "name"],
+        ["css=#user_pass", "css:finder"],
+        ["xpath=//input[@id='user_pass']", "xpath:attributes"],
+        ["xpath=//form[@id='loginform-custom']/p[2]/input", "xpath:idRelative"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": "Moss1234"
+    }, {
+      "id": "0091f915-d397-45c6-82f6-2bd1a347df36",
+      "comment": "",
+      "command": "click",
+      "target": "id=wp-submit",
+      "targets": [
+        ["id=wp-submit", "id"],
+        ["name=wp-submit", "name"],
+        ["css=#wp-submit", "css:finder"],
+        ["xpath=//input[@id='wp-submit']", "xpath:attributes"],
+        ["xpath=//form[@id='loginform-custom']/p[4]/input", "xpath:idRelative"],
+        ["xpath=//p[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d6e50b43-5935-419e-9c32-5f4ebaeffe5f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='mobile-top-header-data']/div[2]/a/span",
+      "targets": [
+        ["css=.qdata-item:nth-child(2) .qdata-left", "css:finder"],
+        ["xpath=//div[@id='mobile-top-header-data']/div[2]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'USD/ZAR')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eaa43602-2d73-4a46-aa02-13c785efebae",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.col-lg-6:nth-child(9) > .tools-under-menu a",
+      "targets": [
+        ["css=.col-lg-6:nth-child(9) > .tools-under-menu a", "css:finder"],
+        ["xpath=(//a[contains(text(),'All')])[2]", "xpath:link"],
+        ["xpath=//div[@id='daily-indicators-page']/div[2]/div[9]/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/tools-and-data/latest-winners-and-losers/')])[2]", "xpath:href"],
+        ["xpath=//div[9]/div/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4754d638-e8e0-4bf9-9738-dd10a26a9407",
+      "comment": "",
+      "command": "click",
+      "target": "css=.col-lg-6:nth-child(9) > .tools-under-menu a",
+      "targets": [
+        ["css=.col-lg-6:nth-child(9) > .tools-under-menu a", "css:finder"],
+        ["xpath=(//a[contains(text(),'All')])[2]", "xpath:link"],
+        ["xpath=//div[@id='daily-indicators-page']/div[2]/div[9]/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '/tools-and-data/latest-winners-and-losers/')])[2]", "xpath:href"],
+        ["xpath=//div[9]/div/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "61879043-cfe4-4721-a4ee-cd2b8ce081bc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.loggedOutHeight",
+      "targets": [
+        ["css=.loggedOutHeight", "css:finder"],
+        ["xpath=//body/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "eb637410-12f8-4cb2-bc28-1e01fcb06509",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["edbd827a-0bdb-4d2d-887b-8a45edd8205a"]
+  }],
+  "urls": ["https://www.moneyweb.co.za/"],
+  "plugins": []
+}
